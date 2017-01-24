@@ -99,6 +99,7 @@ public class Student {
 		
 		//test student1 with toString
 		System.out.println(student1.toString());
-		System.out.println(student1.chats.get(2));
+		System.out.println(student1.chats.get(0));
+		System.out.println(student1.chats.get(1));
 	}
 }
