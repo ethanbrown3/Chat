@@ -29,10 +29,14 @@ public class Student {
 	/**
 	 * Instantiates a new student.
 	 *
-	 * @param first - first name of the student
-	 * @param last - last name of the student
-	 * @param score - the student's score
-	 * @param chats - the chat responses for this student
+	 * @param first
+	 *            - first name of the student
+	 * @param last
+	 *            - last name of the student
+	 * @param score
+	 *            - the student's score
+	 * @param chats
+	 *            - the chat responses for this student
 	 */
 	public Student(String first, String last, double score, String[] chats) {
 		this.firstName = first;
@@ -79,4 +83,22 @@ public class Student {
 		return lastName;
 	}
 
+	@Override
+	public String toString() {
+		return "Student [firstName=" + firstName + ", lastName=" + lastName + ", score=" + score + ", chats=" + chats
+				+ "]";
+	}
+
+	/**
+	 * main() for student used for testing.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String[] testChats = {"Hello", "How you doin'?", "thank you", "bye"};
+		Student student1 = new Student("Ethan","Brown", 99.9, testChats);
+		
+		//test student1 with toString
+		System.out.println(student1.toString());
+		System.out.println(student1.chats.get(2));
+	}
 }
