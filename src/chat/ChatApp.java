@@ -31,7 +31,7 @@ public class ChatApp {
 		ArrayList<Student> students = new ArrayList<>();
 
 		// String arrays of chat transcripts
-		String[] testChats = { "Hello", "How you doin'?", "good", "ok bye" };
+		String[] testChats = { "Hello", "How's it goin'?", "good", "ok bye" };
 		String[] testChats2 = { "Waaazzzzuuup!?", "great, you?", "great", "see you later", "bye bye" };
 		
 		// BufferedReader - used to read in student names from a csv file

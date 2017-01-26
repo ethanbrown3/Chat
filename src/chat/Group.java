@@ -28,9 +28,13 @@ public class Group {
 	 */
 	public Group(Student student1, Student student2) {
 		int firstNameCompare = student1.getFirstName().compareTo(student2.getFirstName());
+		
+		// check that the two students are unique
 		if (student1.equals(student2)) {
 			throw new IllegalArgumentException("students must be unique");
 		}
+		
+		// sort the students by first then last name
 		if (firstNameCompare < 0) {
 			this.studentA = student1;
 			this.studentB = student2;
@@ -53,9 +57,9 @@ public class Group {
 	}
 	
 	/**
-	 * 
+	 * returns a formatted string of the two students' chat transcripts together
 	 *
-	 * @return the string
+	 * @return String - the chat transcript
 	 */
 	public String studentChats() {
 		String nameA = studentA.getFirstName() + " " + studentA.getLastName();
