@@ -6,16 +6,25 @@
  */
 package chat;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Ethan
+ * The Class Group.
  *
+ * @author Ethan
  */
 public class Group {
+	
+	/** The student a. first student sorted by first then last name */
 	Student studentA;
+	
+	/** The student b. second student sorted by first then last name */
 	Student studentB;
 
 	/**
-	 * Used to group students together in pairs
+	 * Used to group students together in pairs.
+	 *
+	 * @param student1 the student1
+	 * @param student2 the student2
 	 */
 	public Group(Student student1, Student student2) {
 		int firstNameCompare = student1.getFirstName().compareTo(student2.getFirstName());
@@ -43,10 +52,27 @@ public class Group {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Group [studentA=" + studentA + ", studentB=" + studentB + "]";
+	}
+
 	/**
-	 * @param args
+	 * The main method. used for tests
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
+		String[] testChats = {"Hello", "How you doin'?", "thank you", "bye"};
+		Student student1 = new Student("Ethan","Brown", testChats);
+		Student student2 = new Student("Alan","Doe", testChats);
+		//test student1 with toString
+		
+		Group testGroup = new Group(student1, student2);
+		System.out.println(testGroup.toString());
 		
 	}
 
