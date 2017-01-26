@@ -29,15 +29,19 @@ public class Student {
 	/**
 	 * Instantiates a new student.
 	 *
-	 * @param first - first name of the student
-	 * @param last - last name of the student
-	 *@param score - the student's score
-	 * @param chats - the chat responses for this student
+	 * @param first
+	 *            - first name of the student
+	 * @param last
+	 *            - last name of the student
+	 * @param score
+	 *            - the student's score
+	 * @param chats
+	 *            - the chat responses for this student
 	 */
 	public Student(String first, String last, String[] chats) {
 		this.firstName = first;
 		this.lastName = last;
-		//this.score = score;
+		// this.score = score;
 		this.chats = new ArrayList<String>(Arrays.asList(chats));
 
 	}
@@ -79,12 +83,23 @@ public class Student {
 		return lastName;
 	}
 
+	public ArrayList<String> getChats() {
+		return chats;
+	}
+
+	public void setChats(ArrayList<String> chats) {
+		this.chats = chats;
+	}
+
+	public void setChats(String[] chats) {
+		this.chats = new ArrayList<String>(Arrays.asList(chats));
+	}
+
 	@Override
 	public String toString() {
-		return "Student [firstName=" + firstName + ", lastName=" + lastName + ", score=" + score + ", chats=" + chats
-				+ "]";
+		return "Student [firstName=" + firstName + ", lastName=" + lastName + ", score=" + score + "]\n";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -129,13 +144,14 @@ public class Student {
 
 	/**
 	 * main() for student used for testing.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String[] testChats = {"Hello", "How you doin'?", "thank you", "bye"};
-		Student student1 = new Student("Ethan","Brown", testChats);
-		
-		//test student1 with toString
+		String[] testChats = { "Hello", "How you doin'?", "thank you", "bye" };
+		Student student1 = new Student("Ethan", "Brown", testChats);
+
+		// test student1 with toString
 		System.out.println(student1.toString());
 		System.out.println(student1.chats.get(0));
 		System.out.println(student1.chats.get(1));
