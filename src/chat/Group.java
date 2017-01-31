@@ -6,7 +6,6 @@
  */
 package chat;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Group.
  *
@@ -97,8 +96,8 @@ public class Group {
 		Student student1 = new Student("Ethan","Brown", testChats2);
 		Student student2 = new Student("Alan","Doe", testChats);
 		//test student1 with toString
-		
 		Group testGroup = new Group(student1, student2);
+//		Group testGroup = new Group(student1, student1); // test for having duplicate students in a group
 		System.out.println(testGroup.toString());
 		System.out.println(testGroup.studentChats());
 		

@@ -9,7 +9,6 @@ package chat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Student.
  *
@@ -25,11 +24,11 @@ public class Student {
 
 	/** The chat responses. */
 	ArrayList<String> chats;
-	
+
 	private final int id;
-	
+
 	public static int idIncrementer = 10000;
-	
+
 	/**
 	 * Instantiates a new student.
 	 *
@@ -47,9 +46,9 @@ public class Student {
 		this.lastName = last;
 		// this.score = score;
 		this.chats = new ArrayList<String>(Arrays.asList(chats));
-		
+
 		id = idIncrementer++;
-		
+
 	}
 
 	/**
@@ -99,14 +98,16 @@ public class Student {
 	}
 
 	/**
-	 * @param chat transcript in an ArrayLists
+	 * @param chat
+	 *            transcript in an ArrayLists
 	 */
 	public void setChats(ArrayList<String> chats) {
 		this.chats = chats;
 	}
 
 	/**
-	 * @param chats transcript in a String[]
+	 * @param chats
+	 *            transcript in a String[]
 	 */
 	public void setChats(String[] chats) {
 		this.chats = new ArrayList<String>(Arrays.asList(chats));
@@ -130,8 +131,6 @@ public class Student {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -162,6 +161,6 @@ public class Student {
 		System.out.println(student1.toString());
 		System.out.println(student2.toString());
 		System.out.println(student1.chats.get(0));
-		System.out.println(student1.chats.get(1));
+		System.out.println(student2.chats.get(0));
 	}
 }

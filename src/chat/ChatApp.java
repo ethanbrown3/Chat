@@ -11,7 +11,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ChatApp.
  *
@@ -44,7 +43,8 @@ public class ChatApp {
 			students.add(new Student(name[0], name[1], testChats2));
 		}
 		reader.close(); // close the reader
-
+		
+		
 		// print ArrayList of students
 		System.out.println(students);
 		
