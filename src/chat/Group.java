@@ -13,22 +13,18 @@ package chat;
  */
 public class Group {
 	
-	/** The student a. first student sorted by first then last name */
 	Student studentA;
-	
-	/** The student b. second student sorted by first then last name */
 	Student studentB;
 
 	/**
-	 * Used to group students together in pairs.
+	 * Used to group students together in pairs. Sorted by name.
 	 *
-	 * @param student1 the student1
-	 * @param student2 the student2
+	 * @param student1
+	 * @param student2
 	 */
 	public Group(Student student1, Student student2) {
 		int firstNameCompare = student1.getFirstName().compareTo(student2.getFirstName());
 		
-		// check that the two students are unique
 		if (student1.equals(student2)) {
 			throw new IllegalArgumentException("students must be unique");
 		}
@@ -64,9 +60,7 @@ public class Group {
 		String nameA = studentA.getFirstName() + " " + studentA.getLastName();
 		String nameB = studentB.getFirstName() + " " + studentB.getLastName();
 		String chat = "";
-//		for (String c : studentA.chats) {
-//			chat += nameA + ": " + c + "\n";
-//		}
+
 		int chatLength = Math.min(studentA.chats.size(), studentB.chats.size());
 		for (int i = 0; i < chatLength; i++) {
 			chat += nameA + ": " + studentA.chats.get(i) + "\n";
@@ -77,19 +71,11 @@ public class Group {
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "Group [studentA=" + studentA + ", studentB=" + studentB + "]";
 	}
 
-	/**
-	 * The main method. used for tests
-	 *
-	 * @param args the arguments
-	 */
 	public static void main(String[] args) {
 		String[] testChats = {"Hello", "How you doin'?", "good", "ok bye"};
 		String[] testChats2 = {"Waaazzzzuuup!?" , "great, you?" , "great", "see you", "bye bye"};

@@ -26,14 +26,12 @@ public class ChatApp {
 	 */
 	public static void main(String[] args) throws IOException {
 
-		// ArrayList of students in the class
 		ArrayList<Student> students = new ArrayList<>();
 
 		// String arrays of chat transcripts
 		String[] testChats = { "Hello", "How's it goin'?", "good", "ok bye" };
 		String[] testChats2 = { "Waaazzzzuuup!?", "great, you?", "great", "see you later", "bye bye" };
 		
-		// BufferedReader - used to read in student names from a csv file
 		BufferedReader reader = new BufferedReader(new FileReader("src/chat/studentNames.csv"));
 		String line;
 		
@@ -42,13 +40,11 @@ public class ChatApp {
 			String[] name = line.split(",");
 			students.add(new Student(name[0], name[1], testChats2));
 		}
-		reader.close(); // close the reader
+		reader.close(); 
 		
 		
-		// print ArrayList of students
 		System.out.println(students);
 		
-		// ArrayList of Groups
 		ArrayList<Group> groups = new ArrayList<>();
 		// fill the groups AL with new groups
 		for (int i = 0; i < students.size(); i++) {
