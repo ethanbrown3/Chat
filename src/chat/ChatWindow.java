@@ -44,15 +44,14 @@ public class ChatWindow extends JFrame {
 	 * @throws HeadlessException
 	 */
 	public ChatWindow() throws HeadlessException {
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(new Dimension(500, 400));
 		this.setResizable(true);
 
 		contentPane = new JPanel(new BorderLayout());
 
-		chatPane = new JTextArea(
-				"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\n"
-						+ "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\n");
+		chatPane = new JTextArea();
 		chatPane.setEditable(false);
 		chatPane.setLineWrap(true);
 		chatPane.setWrapStyleWord(true);
@@ -65,17 +64,19 @@ public class ChatWindow extends JFrame {
 		inputPanel = new JPanel(new FlowLayout());
 		chatInput = new JTextArea(0,25);
 		chatInput.setEditable(true);
+		inputPanel.add(chatInput);
 
 		send = new JButton("Send");
-		inputPanel.add(chatInput);
 		inputPanel.add(send);
 
+		//listeners for button and textArea
 		send.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sendText();
 			}
 		});
+		
 		chatInput.addKeyListener(new KeyListener(){
 		    @Override
 		    public void keyPressed(KeyEvent e){
@@ -92,13 +93,15 @@ public class ChatWindow extends JFrame {
 		    public void keyReleased(KeyEvent e) {
 		    }
 		});
-
+		
 		contentPane.add(inputPanel, "South");
-
 		contentPane.setVisible(true);
 		setVisible(true);
 	}
 	
+	/**
+	 * transfers text from input box to chat pane.
+	 */
 	private void sendText() {
 		String chatSend;
 		String userName = "Ethan";
