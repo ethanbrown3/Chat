@@ -63,8 +63,8 @@ public class Group {
 
 		int chatLength = Math.min(studentA.chats.size(), studentB.chats.size());
 		for (int i = 0; i < chatLength; i++) {
-			chat += nameA + ": " + studentA.chats.get(i) + "\n";
-			chat += nameB + ": " + studentB.chats.get(i) + "\n";
+			chat += nameA + ": " + studentA.chats.get(i) + "\n\n";
+			chat += nameB + ": " + studentB.chats.get(i) + "\n\n";
 		}
 		
 		return chat;
