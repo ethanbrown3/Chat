@@ -32,7 +32,7 @@ public class ChatWindow extends JFrame {
 	private JTextArea chatPane;
 	private JTextArea chatInput;
 	private JPanel inputPanel;
-	private JScrollPane scroll;
+	private JScrollPane chatScroll, inputScroll;
 	private JButton send;
 
 	/**
@@ -55,17 +55,17 @@ public class ChatWindow extends JFrame {
 		chatPane.setEditable(false);
 		chatPane.setLineWrap(true);
 		chatPane.setWrapStyleWord(true);
-		scroll = new JScrollPane(chatPane);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		contentPane.add(scroll, "Center");
-
-		getContentPane().add(contentPane);
+		chatScroll = new JScrollPane(chatPane);
+		chatScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		contentPane.add(chatScroll, "Center");
 
 		inputPanel = new JPanel(new FlowLayout());
-		chatInput = new JTextArea(0,25);
+		chatInput = new JTextArea(3,25);
 		chatInput.setEditable(true);
-		inputPanel.add(chatInput);
-
+		inputScroll = new JScrollPane(chatInput);
+		inputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		inputPanel.add(inputScroll);
+		
 		send = new JButton("Send");
 		inputPanel.add(send);
 
@@ -94,6 +94,7 @@ public class ChatWindow extends JFrame {
 		    }
 		});
 		
+		getContentPane().add(contentPane);
 		contentPane.add(inputPanel, "South");
 		contentPane.setVisible(true);
 		setVisible(true);
@@ -106,7 +107,7 @@ public class ChatWindow extends JFrame {
 		String chatSend;
 		String userName = "Ethan";
 		chatSend = chatInput.getText();
-		chatPane.append(userName +": " + chatSend + "\n");
+		chatPane.append(userName +": " + chatSend + "\n\n");
 		chatInput.setText("");
 	}
 
