@@ -29,8 +29,8 @@ import javax.swing.ScrollPaneConstants;
 public class ChatWindow extends JFrame {
 
 	private JPanel contentPane;
-	private JTextArea chatPane;
-	private JTextArea chatInput;
+	private JTextArea chatArea;
+	private JTextArea chatInputArea;
 	private JPanel inputPanel;
 	private JScrollPane chatScroll, inputScroll;
 	private JButton send;
@@ -44,32 +44,47 @@ public class ChatWindow extends JFrame {
 	 * @throws HeadlessException
 	 */
 	public ChatWindow() throws HeadlessException {
-		
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(new Dimension(500, 400));
 		this.setResizable(true);
 
 		contentPane = new JPanel(new BorderLayout());
-
-		chatPane = new JTextArea();
-		chatPane.setEditable(false);
-		chatPane.setLineWrap(true);
-		chatPane.setWrapStyleWord(true);
-		chatScroll = new JScrollPane(chatPane);
+		chatArea = new JTextArea();
+		chatArea.setEditable(false);
+		chatArea.setLineWrap(true);
+		chatArea.setWrapStyleWord(true);
+		chatScroll = new JScrollPane(chatArea);
 		chatScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		contentPane.add(chatScroll, "Center");
 
+		// south panel
 		inputPanel = new JPanel(new FlowLayout());
-		chatInput = new JTextArea(3,25);
-		chatInput.setEditable(true);
-		inputScroll = new JScrollPane(chatInput);
+		chatInputArea = new JTextArea(3, 25);
+		chatInputArea.setEditable(true);
+		inputScroll = new JScrollPane(chatInputArea);
 		inputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		inputPanel.add(inputScroll);
-		
+		chatInputArea.addKeyListener(new KeyListener() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && e.getModifiers() == KeyEvent.CTRL_MASK) {
+					sendText();
+				}
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+		});
+
+		// send button setup
 		send = new JButton("Send");
 		inputPanel.add(send);
-
-		//listeners for button and textArea
 		send.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -77,38 +92,28 @@ public class ChatWindow extends JFrame {
 			}
 		});
 		
-		chatInput.addKeyListener(new KeyListener(){
-		    @Override
-		    public void keyPressed(KeyEvent e){
-		        if(e.getKeyCode() == KeyEvent.VK_ENTER && e.getModifiers() == KeyEvent.CTRL_MASK) {
-		        sendText();
-		        }
-		    }
-
-		    @Override
-		    public void keyTyped(KeyEvent e) {
-		    }
-
-		    @Override
-		    public void keyReleased(KeyEvent e) {
-		    }
-		});
-		
-		getContentPane().add(contentPane);
 		contentPane.add(inputPanel, "South");
+		getContentPane().add(contentPane);
 		contentPane.setVisible(true);
 		setVisible(true);
+		chatInputArea.requestFocusInWindow();
+
 	}
-	
+
 	/**
 	 * transfers text from input box to chat pane.
+	 * will eventually send text through the chat client.
 	 */
 	private void sendText() {
 		String chatSend;
 		String userName = "Ethan";
-		chatSend = chatInput.getText();
-		chatPane.append(userName +": " + chatSend + "\n\n");
-		chatInput.setText("");
+		chatSend = chatInputArea.getText();
+		chatArea.append(userName + ": " + chatSend + "\n\n");
+		chatInputArea.setText("");
+	}
+	
+	public void addText(String chat) {
+		chatArea.append(chat);
 	}
 
 	/**

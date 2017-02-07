@@ -21,8 +21,10 @@ public class ChatApp {
 	/**
 	 * The main method.
 	 *
-	 * @param args the arguments
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param args
+	 *            the arguments
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public static void main(String[] args) throws IOException {
 
@@ -31,32 +33,31 @@ public class ChatApp {
 		// String arrays of chat transcripts
 		String[] testChats = { "Hello", "How's it goin'?", "good", "ok bye" };
 		String[] testChats2 = { "Waaazzzzuuup!?", "great, you?", "great", "see you later", "bye bye" };
-		
+
 		BufferedReader reader = new BufferedReader(new FileReader("src/chat/studentNames.csv"));
 		String line;
-		
-		// while loop that creates new students and adds them to the student ArrayList
+
+		// while loop that creates new students and adds them to students List
 		while ((line = reader.readLine()) != null) {
 			String[] name = line.split(",");
 			students.add(new Student(name[0], name[1], testChats2));
 		}
-		reader.close(); 
-		
-		
+		reader.close();
+
 		System.out.println(students);
-		
+
 		ArrayList<Group> groups = new ArrayList<>();
 		// fill the groups AL with new groups
 		for (int i = 0; i < students.size(); i++) {
 			students.get(i + 1).setChats(testChats);
 			groups.add(new Group(students.get(i), students.get(++i)));
 		}
-		
+
+		ChatWindow window = new ChatWindow();
 		// print the chat transcripts of the groups
 		for (int i = 0; i < groups.size(); i++) {
-			System.out.println(groups.get(i).studentChats());
+			window.addText(groups.get(i).studentChats());
 		}
-
 	}
 
 }
