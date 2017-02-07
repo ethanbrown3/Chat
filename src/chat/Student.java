@@ -14,7 +14,7 @@ import java.util.Arrays;
  *
  * @author Ethan
  */
-public class Student {
+public class Student implements Comparable<Student> {
 
 	private String firstName, lastName;
 
@@ -111,6 +111,13 @@ public class Student {
 		return true;
 	}
 
+	@Override
+	public int compareTo(Student compareStudent) {
+		String compareString = compareStudent.getFirstName()+compareStudent.getLastName();
+		String studentString = this.getFirstName() + this.getLastName();
+		return studentString.compareToIgnoreCase(compareString);
+	}
+
 	public static void main(String[] args) {
 		String[] testChats = { "Hello", "How you doin'?", "thank you", "bye" };
 		Student student1 = new Student("Ethan", "Brown", testChats);
@@ -121,4 +128,5 @@ public class Student {
 		System.out.println(student1.chats.get(0));
 		System.out.println(student2.chats.get(0));
 	}
+
 }
