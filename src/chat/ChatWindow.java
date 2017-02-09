@@ -48,7 +48,8 @@ public class ChatWindow extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(new Dimension(500, 400));
 		this.setResizable(true);
-
+		
+		// center panel
 		contentPane = new JPanel(new BorderLayout());
 		chatArea = new JTextArea();
 		chatArea.setEditable(false);
@@ -62,6 +63,8 @@ public class ChatWindow extends JFrame {
 		inputPanel = new JPanel(new FlowLayout());
 		chatInputArea = new JTextArea(3, 25);
 		chatInputArea.setEditable(true);
+		chatInputArea.setLineWrap(true);
+		chatInputArea.setWrapStyleWord(true);
 		inputScroll = new JScrollPane(chatInputArea);
 		inputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		inputPanel.add(inputScroll);

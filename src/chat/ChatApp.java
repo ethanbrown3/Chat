@@ -48,10 +48,11 @@ public class ChatApp {
 		
 		ArrayList<Student> studentList = new ArrayList<Student>(students);
 		studentList.sort(null);
+		
 		System.out.println(studentList);
-
-		ArrayList<Group> groups = new ArrayList<>();
-		// fill the groups AL with new groups
+		ArrayList<Group> groups = new ArrayList<>();		
+		
+		// fill the ArrayList groups with new groups of students
 		for (int i = 0; i < students.size(); i++) {
 			studentList.get(i + 1).setChats(testChats);
 			groups.add(new Group(studentList.get(i), studentList.get(++i)));
