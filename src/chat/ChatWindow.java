@@ -117,6 +117,8 @@ public class ChatWindow extends JFrame {
 	
 	public void addText(String chat) {
 		chatArea.append(chat);
+		chatArea.setCaretPosition(chatArea.getDocument().getLength());
+
 	}
 
 	/**
