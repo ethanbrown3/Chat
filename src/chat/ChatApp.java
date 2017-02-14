@@ -42,7 +42,7 @@ public class ChatApp {
 		// while loop that creates new students and adds them to students set
 		while ((line = reader.readLine()) != null) {
 			String[] name = line.split(",");
-			students.add(new Student(name[0], name[1], testChats2));
+			students.add(new Student(name[0], name[1], testChats));
 		}
 		reader.close();
 		
@@ -54,7 +54,7 @@ public class ChatApp {
 		
 		// fill the ArrayList groups with new groups of students
 		for (int i = 0; i < students.size(); i++) {
-			studentList.get(i + 1).setChats(testChats);
+			studentList.get(i + 1).setChats(testChats2);
 			groups.add(new Group(studentList.get(i), studentList.get(++i)));
 		}
 		groups.sort(null);

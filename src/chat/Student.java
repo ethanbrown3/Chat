@@ -20,11 +20,11 @@ public class Student implements Comparable<Student> {
 
 	private double score;
 
-	ArrayList<String> chats;
+	private ArrayList<String> chats;
 
 	private final int id;
 
-	public static int idIncrementer = 10000;
+	private static int idIncrementer = 10000;
 
 	/**
 	 * Instantiates a new student.

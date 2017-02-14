@@ -6,6 +6,8 @@
  */
 package chat;
 
+import java.util.ArrayList;
+
 /**
  * The Class Group.
  *
@@ -60,11 +62,13 @@ public class Group implements Comparable<Group> {
 		String nameA = studentA.getFirstName() + " " + studentA.getLastName();
 		String nameB = studentB.getFirstName() + " " + studentB.getLastName();
 		String chat = "";
-
-		int chatLength = Math.min(studentA.chats.size(), studentB.chats.size());
+		ArrayList<String> chatA = studentA.getChats();
+		ArrayList<String> chatB = studentB.getChats();
+		
+		int chatLength = Math.min(chatA.size(), chatB.size());
 		for (int i = 0; i < chatLength; i++) {
-			chat += nameA + ": " + studentA.chats.get(i) + "\n\n";
-			chat += nameB + ": " + studentB.chats.get(i) + "\n\n";
+			chat += nameA + ": " + chatA.get(i) + "\n\n";
+			chat += nameB + ": " + chatB.get(i) + "\n\n";
 		}
 
 		return chat;
