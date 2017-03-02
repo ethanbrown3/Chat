@@ -6,25 +6,40 @@
  */
 package chat;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 /**
  * @author Ethan
  *
  */
 public class Server {
-
+	
 	/**
 	 * 
 	 */
-	public Server() {
-		// TODO Auto-generated constructor stub
+	public Server() throws IOException {
+		ServerSocket ss = new ServerSocket(8080);
+		
+		try {
+			while (true) {
+				Socket s = ss.accept();
+				ServerHandler sh = new ServerHandler(s);
+				
+				new Thread(sh).start();
+			}
+		} finally {
+			ss.close();
+		}
+		
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public static void main(String[] args) throws IOException {
+		new Server();
+		
 	}
-
 }

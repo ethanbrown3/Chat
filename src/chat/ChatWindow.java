@@ -28,12 +28,8 @@ import javax.swing.ScrollPaneConstants;
  */
 public class ChatWindow extends JFrame {
 
-	private JPanel contentPane;
 	private JTextArea chatArea;
 	private JTextArea chatInputArea;
-	private JPanel inputPanel;
-	private JScrollPane chatScroll, inputScroll;
-	private JButton send;
 
 	/**
 	 * 
@@ -50,22 +46,22 @@ public class ChatWindow extends JFrame {
 		this.setResizable(true);
 		
 		// center panel
-		contentPane = new JPanel(new BorderLayout());
+		JPanel contentPane = new JPanel(new BorderLayout());
 		chatArea = new JTextArea();
 		chatArea.setEditable(false);
 		chatArea.setLineWrap(true);
 		chatArea.setWrapStyleWord(true);
-		chatScroll = new JScrollPane(chatArea);
+		JScrollPane chatScroll = new JScrollPane(chatArea);
 		chatScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		contentPane.add(chatScroll, "Center");
 
 		// south panel
-		inputPanel = new JPanel(new FlowLayout());
+		JPanel inputPanel = new JPanel(new FlowLayout());
 		chatInputArea = new JTextArea(3, 25);
 		chatInputArea.setEditable(true);
 		chatInputArea.setLineWrap(true);
 		chatInputArea.setWrapStyleWord(true);
-		inputScroll = new JScrollPane(chatInputArea);
+		JScrollPane inputScroll = new JScrollPane(chatInputArea);
 		inputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		inputPanel.add(inputScroll);
 		chatInputArea.addKeyListener(new KeyListener() {
@@ -86,7 +82,7 @@ public class ChatWindow extends JFrame {
 		});
 
 		// send button setup
-		send = new JButton("Send");
+		JButton send = new JButton("Send");
 		inputPanel.add(send);
 		send.addActionListener(new ActionListener() {
 			@Override
