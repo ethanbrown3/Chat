@@ -30,27 +30,8 @@ public class Group implements Comparable<Group> {
 		if (student1.equals(student2)) {
 			throw new IllegalArgumentException("students must be unique");
 		}
-
-		// sort the students by first then last name
-		if (firstNameCompare < 0) {
-			this.studentA = student1;
-			this.studentB = student2;
-		} else if (firstNameCompare > 0) {
-			this.studentB = student1;
-			this.studentA = student2;
-		} else if (firstNameCompare == 0) {
-			int lastNameCompare = student1.getLastName().compareTo(student2.getLastName());
-			if (lastNameCompare < 0) {
-				this.studentA = student1;
-				this.studentB = student2;
-			} else if (lastNameCompare > 0) {
-				this.studentB = student1;
-				this.studentA = student2;
-			} else {
-				this.studentA = student1;
-				this.studentB = student2;
-			}
-		}
+		this.studentA = student1;
+		this.studentB = student2;
 	}
 
 	/**
@@ -64,7 +45,7 @@ public class Group implements Comparable<Group> {
 		String chat = "";
 		ArrayList<String> chatA = studentA.getChats();
 		ArrayList<String> chatB = studentB.getChats();
-		
+
 		int chatLength = Math.min(chatA.size(), chatB.size());
 		for (int i = 0; i < chatLength; i++) {
 			chat += nameA + ": " + chatA.get(i) + "\n\n";
