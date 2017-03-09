@@ -28,13 +28,11 @@ import javax.swing.ScrollPaneConstants;
  */
 public class ChatWindow extends JFrame {
 
+	private static final long serialVersionUID = -4248589752453598110L;
+	
 	private JTextArea chatArea;
 	private JTextArea chatInputArea;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5205465820795150208L;
 
 	/**
 	 * @throws HeadlessException

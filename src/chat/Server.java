@@ -20,7 +20,7 @@ public class Server {
 	 * 
 	 */
 	public Server() throws IOException {
-		ServerSocket ss = new ServerSocket(8080);
+		ServerSocket ss = new ServerSocket(8090);
 		
 		try {
 			while (true) {
