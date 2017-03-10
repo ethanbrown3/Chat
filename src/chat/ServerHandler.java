@@ -39,6 +39,7 @@ public class ServerHandler implements Runnable {
 		try {
 			while((str = input.readLine()) != null) {
 				output.println(str);
+				System.out.println("Client " + str);
 				output.flush();
 			}
 		} catch (IOException e) {

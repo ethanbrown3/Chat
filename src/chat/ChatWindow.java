@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,8 +38,8 @@ public class ChatWindow extends JFrame {
 	private JTextArea chatArea;
 	private JTextArea chatInputArea;
 	private Socket socket1;
-	private BufferedReader br;
-	private PrintWriter pw;
+	private BufferedReader input;
+	private PrintWriter output;
 
 
 	/**
@@ -49,18 +48,8 @@ public class ChatWindow extends JFrame {
 	 */
 	public ChatWindow(Socket socket1) throws HeadlessException, IOException {
 		this.socket1 = socket1;
-		br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-		pw = new PrintWriter(socket1.getOutputStream(), true);
-		//pw.println(str);
+		output = new PrintWriter(socket1.getOutputStream(), true);
 
-//		while ((str = br.readLine()) != null) {
-//			System.out.println(str);
-//			str = keyboard.nextLine();
-//			pw.println(str);
-//
-//			if (str.equals("bye"))
-//				break;
-//		}
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(new Dimension(500, 400));
 		this.setResizable(true);
@@ -127,12 +116,14 @@ public class ChatWindow extends JFrame {
 		String chatSend;
 		String userName = "Ethan";
 		chatSend = chatInputArea.getText();
-		chatArea.append(userName + ": " + chatSend + "\n\n");
 		chatInputArea.setText("");
+		output.println(userName + ": " + chatSend);
+		
+		
 	}
 	
 	public void addText(String chat) {
-		chatArea.append(chat);
+		chatArea.append(chat + "\n\n");
 		chatArea.setCaretPosition(chatArea.getDocument().getLength());
 
 	}

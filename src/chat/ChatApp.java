@@ -10,13 +10,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Set;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  * The Class ChatApp.
@@ -63,33 +64,31 @@ public class ChatApp {
 			groups.add(new Group(studentList.get(i), studentList.get(++i)));
 		}
 		groups.sort(null);
-
 		
-
+		String ipAddress = JOptionPane.showInputDialog("Enter Server IP Address");
+		
 		// socket setup
 		int portNumber = 8090;
 		String str = "initilized";
-		Socket socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
-//		BufferedReader br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-//		PrintWriter pw = new PrintWriter(socket1.getOutputStream(), true);
-//		Scanner keyboard = new Scanner(System.in);
-//		//pw.println(str);
-//
-//		while ((str = br.readLine()) != null) {
-//			System.out.println(str);
-//			str = keyboard.nextLine();
-//			pw.println(str);
-//
-//			if (str.equals("bye"))
-//				break;
-//		}
+		
+		new Thread(new Server()).start();
+		Socket socket1 = new Socket(InetAddress.getByName(ipAddress), portNumber);		
+		BufferedReader br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+		System.out.println(InetAddress.getLocalHost());
 		
 		ChatWindow window = new ChatWindow(socket1);
+		
 		// print the chat transcripts of the groups
 		for (int i = 0; i < groups.size(); i++) {
 			window.addText(groups.get(i).studentChats());
 		}
+		
+		// handle server communication
+		while ((str = br.readLine()) != null) {
+			window.addText(str);
+		}
 
 	}
+
 
 }
