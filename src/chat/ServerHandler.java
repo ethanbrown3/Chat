@@ -6,9 +6,12 @@
  */
 package chat;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -16,22 +19,32 @@ import java.net.Socket;
  *
  */
 public class ServerHandler implements Runnable {
-	private Socket socket;
-	private InputStream input;
-	private OutputStream output;
+	private Socket clientSocket;
+	private BufferedReader input;
+	private PrintWriter output;
 	
 	/**
 	 * 
 	 */
 	public ServerHandler(Socket s) throws IOException {
-		socket = s;
-		input = s.getInputStream();
-		output = s.getOutputStream();
+		clientSocket = s;
+		input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		output = new PrintWriter(clientSocket.getOutputStream(), true);
 	}
 
 	@Override
 	public void run() {
-	
+		output.println("ACK");
+		String str;
+		try {
+			while((str = input.readLine()) != null) {
+				output.println(str);
+				output.flush();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

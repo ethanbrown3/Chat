@@ -14,6 +14,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,13 +38,29 @@ public class ChatWindow extends JFrame {
 	
 	private JTextArea chatArea;
 	private JTextArea chatInputArea;
+	private Socket socket1;
+	private BufferedReader br;
+	private PrintWriter pw;
 
 
 	/**
 	 * @throws HeadlessException
+	 * @throws IOException 
 	 */
-	public ChatWindow() throws HeadlessException {
+	public ChatWindow(Socket socket1) throws HeadlessException, IOException {
+		this.socket1 = socket1;
+		br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+		pw = new PrintWriter(socket1.getOutputStream(), true);
+		//pw.println(str);
 
+//		while ((str = br.readLine()) != null) {
+//			System.out.println(str);
+//			str = keyboard.nextLine();
+//			pw.println(str);
+//
+//			if (str.equals("bye"))
+//				break;
+//		}
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(new Dimension(500, 400));
 		this.setResizable(true);
@@ -119,7 +141,7 @@ public class ChatWindow extends JFrame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new ChatWindow();
+//		new ChatWindow();
 	}
 
 }
