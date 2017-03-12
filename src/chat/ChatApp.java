@@ -67,7 +67,7 @@ public class ChatApp {
 		groups.sort(null);
 
 		String ipAddress = JOptionPane.showInputDialog("Enter Server IP Address");
-		String userName = JOptionPane.showInputDialog("Enter Username");
+
 		// socket setup
 		int portNumber = 8090;
 		String str = "initilized";
@@ -75,29 +75,27 @@ public class ChatApp {
 		ChatWindow window;
 		BufferedReader input;
 		PrintWriter output;
-
+		boolean newServer = false;
 		try {
 			socket1 = new Socket(InetAddress.getByName(ipAddress), portNumber);
 		} catch (Exception ex) {
 			System.out.println("Connection failed, starting new server at " + InetAddress.getLocalHost());
 			new Thread(new Server()).start();
 			socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
+			newServer = true;
 		}
 		
 		input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
 		output = new PrintWriter(socket1.getOutputStream(), true);
-		output.println(userName);
 		
-		if (input.readLine() != "ACK") {
-			new Thread(new Server()).start();
-			socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
-			input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-			window = new ChatWindow(socket1, userName);
-		} else {
-			window = new ChatWindow(socket1, userName);
-		}
-
-		
+//		if (input.readLine() != "ACK" && newServer == false) {
+//			new Thread(new Server()).start();
+//			socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
+//			input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+//			window = new ChatWindow(socket1);
+//		} else {
+			window = new ChatWindow(socket1);
+//		}
 
 		System.out.println(InetAddress.getLocalHost());
 

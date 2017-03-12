@@ -21,30 +21,30 @@ import java.net.Socket;
 public class ServerHandler implements Runnable {
 	private Socket clientSocket;
 	private BufferedReader input;
-	private PrintWriter output;
-	
+	private String username;
+
 	/**
 	 * 
 	 */
-	public ServerHandler(Socket s) throws IOException {
+	public ServerHandler(Socket s, String user) throws IOException {
 		clientSocket = s;
 		input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		output = new PrintWriter(clientSocket.getOutputStream(), true);
+		username = user;
 	}
 
 	@Override
 	public void run() {
 		String str;
 		try {
-			while((str = input.readLine()) != null) {
-				Server.sendMessage(str);
+			while ((str = input.readLine()) != null) {
+				Server.sendMessage(username + ": " + str);
 				System.out.println("Client " + str);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
