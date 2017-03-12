@@ -40,16 +40,18 @@ public class ChatWindow extends JFrame {
 	private Socket socket1;
 	private BufferedReader input;
 	private PrintWriter output;
+	private String userName;
 
 
 	/**
 	 * @throws HeadlessException
 	 * @throws IOException 
 	 */
-	public ChatWindow(Socket socket1) throws HeadlessException, IOException {
+	public ChatWindow(Socket socket1, String user) throws HeadlessException, IOException {
 		this.socket1 = socket1;
 		output = new PrintWriter(socket1.getOutputStream(), true);
-
+		userName = user;
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(new Dimension(500, 400));
 		this.setResizable(true);
@@ -114,7 +116,6 @@ public class ChatWindow extends JFrame {
 	 */
 	private void sendText() {
 		String chatSend;
-		String userName = "Ethan";
 		chatSend = chatInputArea.getText();
 		chatInputArea.setText("");
 		output.println(userName + ": " + chatSend);

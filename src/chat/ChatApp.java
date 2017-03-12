@@ -10,13 +10,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,6 +34,7 @@ public class ChatApp {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException {
 
 		Set<Student> students = new HashSet<>();
@@ -64,31 +65,52 @@ public class ChatApp {
 			groups.add(new Group(studentList.get(i), studentList.get(++i)));
 		}
 		groups.sort(null);
-		
+
 		String ipAddress = JOptionPane.showInputDialog("Enter Server IP Address");
-		
+		String userName = JOptionPane.showInputDialog("Enter Username");
 		// socket setup
 		int portNumber = 8090;
 		String str = "initilized";
+		Socket socket1;
+		ChatWindow window;
+		BufferedReader input;
+		PrintWriter output;
+
+		try {
+			socket1 = new Socket(InetAddress.getByName(ipAddress), portNumber);
+		} catch (Exception ex) {
+			System.out.println("Connection failed, starting new server at " + InetAddress.getLocalHost());
+			new Thread(new Server()).start();
+			socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
+		}
 		
-		new Thread(new Server()).start();
-		Socket socket1 = new Socket(InetAddress.getByName(ipAddress), portNumber);		
-		BufferedReader br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+		input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+		output = new PrintWriter(socket1.getOutputStream(), true);
+		output.println(userName);
+		
+		if (input.readLine() != "ACK") {
+			new Thread(new Server()).start();
+			socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
+			input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+			window = new ChatWindow(socket1, userName);
+		} else {
+			window = new ChatWindow(socket1, userName);
+		}
+
+		
+
 		System.out.println(InetAddress.getLocalHost());
-		
-		ChatWindow window = new ChatWindow(socket1);
-		
+
 		// print the chat transcripts of the groups
 		for (int i = 0; i < groups.size(); i++) {
 			window.addText(groups.get(i).studentChats());
 		}
-		
+
 		// handle server communication
-		while ((str = br.readLine()) != null) {
+		while ((str = input.readLine()) != null) {
 			window.addText(str);
 		}
 
 	}
-
 
 }

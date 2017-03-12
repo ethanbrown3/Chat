@@ -34,13 +34,11 @@ public class ServerHandler implements Runnable {
 
 	@Override
 	public void run() {
-		output.println("ACK");
 		String str;
 		try {
 			while((str = input.readLine()) != null) {
-				output.println(str);
+				Server.sendMessage(str);
 				System.out.println("Client " + str);
-				output.flush();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
