@@ -25,7 +25,6 @@ public class Group implements Comparable<Group> {
 	 * @param student2
 	 */
 	public Group(Student student1, Student student2) {
-		int firstNameCompare = student1.getFirstName().compareTo(student2.getFirstName());
 
 		if (student1.equals(student2)) {
 			throw new IllegalArgumentException("students must be unique");
@@ -48,8 +47,8 @@ public class Group implements Comparable<Group> {
 
 		int chatLength = Math.min(chatA.size(), chatB.size());
 		for (int i = 0; i < chatLength; i++) {
-			chat += nameA + ": " + chatA.get(i) + "\n\n";
-			chat += nameB + ": " + chatB.get(i) + "\n\n";
+			chat += nameA + ": " + chatA.get(i) + "\n";
+			chat += nameB + ": " + chatB.get(i) + "\n";
 		}
 
 		return chat;

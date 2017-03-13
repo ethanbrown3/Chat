@@ -33,7 +33,6 @@ public class ChatApp {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException {
 
 		Set<Student> students = new HashSet<>();
@@ -85,15 +84,15 @@ public class ChatApp {
 		}
 		
 		input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-		
-		if (input.readLine() != "ACK" && newServer == false) {
-			new Thread(new Server()).start();
-			socket1 = new Socket(InetAddress.getLocalHost(), PORT_NUMBER);
-			input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+
+//		if (input.readLine() != "ACK" && newServer == false) {
+//			new Thread(new Server()).start();
+//			socket1 = new Socket(InetAddress.getLocalHost(), PORT_NUMBER);
+//			input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+//			window = new ChatWindow(socket1);
+//		} else {
 			window = new ChatWindow(socket1);
-		} else {
-			window = new ChatWindow(socket1);
-		}
+//		}
 
 		System.out.println(InetAddress.getLocalHost());
 

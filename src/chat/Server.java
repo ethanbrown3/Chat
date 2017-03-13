@@ -44,11 +44,12 @@ public class Server implements Runnable {
 					BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 					newOutput = new PrintWriter(clientSocket.getOutputStream(), true);
 					newOutput.println("ACK");
+					newOutput.flush();
 					newOutput.println("Enter Username");
 					String username;
 					while (true) {
 						username = input.readLine();
-						if (users.contains(username)) {
+						if (users.contains(username) || username.isEmpty()) {
 							newOutput.println("Username Denied, Try Again");
 						} else {
 							newOutput.println("Username Accepted");
