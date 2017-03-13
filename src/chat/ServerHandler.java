@@ -8,10 +8,7 @@ package chat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -38,7 +35,7 @@ public class ServerHandler implements Runnable {
 		try {
 			while ((str = input.readLine()) != null) {
 				Server.sendMessage(username + ": " + str);
-				System.out.println("Client " + str);
+				System.out.println(username + ": " + str);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

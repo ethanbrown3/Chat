@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  */
 public class Server implements Runnable {
 	public static ArrayList<String> users;
-	private int port = 8090;
+	private final int PORT = 8090;
 	private PrintWriter newOutput;
 	public static ArrayList<PrintWriter> outputs;
 
@@ -35,9 +36,8 @@ public class Server implements Runnable {
 	@Override
 	public void run() {
 		try {
-			ServerSocket ss = new ServerSocket(port);
-			System.out.println("waiting on connection on port: " + port);
-			String newUser;
+			ServerSocket ss = new ServerSocket(PORT);
+			System.out.println("waiting on connection at address: " + InetAddress.getLocalHost() + ":" + PORT);
 			try {
 				while (true) {
 					Socket clientSocket = ss.accept();

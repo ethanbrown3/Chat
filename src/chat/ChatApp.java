@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -69,33 +68,32 @@ public class ChatApp {
 		String ipAddress = JOptionPane.showInputDialog("Enter Server IP Address");
 
 		// socket setup
-		int portNumber = 8090;
-		String str = "initilized";
+		final int PORT_NUMBER = 8090;
+		String str;
 		Socket socket1;
 		ChatWindow window;
 		BufferedReader input;
-		PrintWriter output;
 		boolean newServer = false;
+		
 		try {
-			socket1 = new Socket(InetAddress.getByName(ipAddress), portNumber);
-		} catch (Exception ex) {
+			socket1 = new Socket(InetAddress.getByName(ipAddress), PORT_NUMBER); //if I enter a valid ip address but it isn't a server it hangs here without throwing an exception
+		} catch (IOException ex) {
 			System.out.println("Connection failed, starting new server at " + InetAddress.getLocalHost());
 			new Thread(new Server()).start();
-			socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
 			newServer = true;
+			socket1 = new Socket(InetAddress.getLocalHost(), PORT_NUMBER);
 		}
 		
 		input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-		output = new PrintWriter(socket1.getOutputStream(), true);
 		
-//		if (input.readLine() != "ACK" && newServer == false) {
-//			new Thread(new Server()).start();
-//			socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
-//			input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-//			window = new ChatWindow(socket1);
-//		} else {
+		if (input.readLine() != "ACK" && newServer == false) {
+			new Thread(new Server()).start();
+			socket1 = new Socket(InetAddress.getLocalHost(), PORT_NUMBER);
+			input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
 			window = new ChatWindow(socket1);
-//		}
+		} else {
+			window = new ChatWindow(socket1);
+		}
 
 		System.out.println(InetAddress.getLocalHost());
 
