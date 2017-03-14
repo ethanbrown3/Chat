@@ -42,25 +42,27 @@ public class Server implements Runnable {
 				while (true) {
 					Socket clientSocket = ss.accept();
 					BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-					newOutput = new PrintWriter(clientSocket.getOutputStream(), true);
-					newOutput.println("ACK");
-					newOutput.flush();
-					newOutput.println("Enter Username");
+					newOutput = new PrintWriter(clientSocket.getOutputStream(), true);					
+					System.out.println("Client Connected");
 					String username;
 					while (true) {
 						username = input.readLine();
 						if (users.contains(username) || username.isEmpty()) {
-							newOutput.println("Username Denied, Try Again");
+							newOutput.println("DENY");
+							newOutput.flush();
+							System.out.println("Server: DNY");
 						} else {
-							newOutput.println("Username Accepted");
+							newOutput.println("ACK");
+							newOutput.flush();
 							users.add(username);
+							System.out.println("Server: ACK");
 							break;
 						}
 					}
 					ServerHandler sh = new ServerHandler(clientSocket, username);
-					System.out.println("Client Connected");
 					outputs.add(newOutput);
 					new Thread(sh).start();
+					sendMessage(username + " has joined the chat");
 
 				}
 			} finally {

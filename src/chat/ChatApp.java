@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -69,36 +70,41 @@ public class ChatApp {
 		// socket setup
 		final int PORT_NUMBER = 8090;
 		String str;
-		Socket socket1;
+		Socket socket1 = new Socket();
 		ChatWindow window;
 		BufferedReader input;
-		boolean newServer = false;
-		
+	
 		try {
-			socket1 = new Socket(InetAddress.getByName(ipAddress), PORT_NUMBER); //if I enter a valid ip address but it isn't a server it hangs here without throwing an exception
+			socket1.connect(new InetSocketAddress(ipAddress, PORT_NUMBER), 8000);
 		} catch (IOException ex) {
 			System.out.println("Connection failed, starting new server at " + InetAddress.getLocalHost());
 			new Thread(new Server()).start();
-			newServer = true;
+			socket1.close();
 			socket1 = new Socket(InetAddress.getLocalHost(), PORT_NUMBER);
 		}
-		
+
 		input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
 
-//		if (input.readLine() != "ACK" && newServer == false) {
-//			new Thread(new Server()).start();
-//			socket1 = new Socket(InetAddress.getLocalHost(), PORT_NUMBER);
-//			input = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-//			window = new ChatWindow(socket1);
-//		} else {
-			window = new ChatWindow(socket1);
-//		}
+		window = new ChatWindow(socket1);
 
 		System.out.println(InetAddress.getLocalHost());
 
 		// print the chat transcripts of the groups
 		for (int i = 0; i < groups.size(); i++) {
 			window.addText(groups.get(i).studentChats());
+		}
+		
+		window.addText("Enter Username");
+		
+		while (true) {
+			str = input.readLine();
+			if (str.equals("ACK")) {
+				window.addText("Username Accepted");
+				break;
+			} else {
+				window.addText("Invalid Username, Try again.");
+			}
+			
 		}
 
 		// handle server communication
